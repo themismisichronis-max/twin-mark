@@ -94,7 +94,11 @@ rounded:
   board: "10px"
   image: "12px"
   frame: "16px"
+  phone-web-screen-small: "16px"
+  phone-web-small: "20px"
+  phone-web-screen: "21px"
   brief: "22px"
+  phone-web: "26px"
   card: "28px"
   phone-screen: "32px"
   phone: "40px"
@@ -146,14 +150,14 @@ components:
     rounded: "{rounded.card}"
     padding: "clamp(18px, 2.4vw, 30px)"
   input-field:
-    backgroundColor: "#fbfcfe"
+    backgroundColor: "{colors.tile}"
     textColor: "{colors.ink}"
     typography: "{typography.body}"
     rounded: "{rounded.image}"
     padding: "13px 16px"
     height: "52px"
   choice-chip:
-    backgroundColor: "#fbfcfe"
+    backgroundColor: "{colors.tile}"
     textColor: "{colors.ink}"
     typography: "{typography.ui}"
     rounded: "{rounded.pill}"
@@ -172,9 +176,9 @@ components:
 
 The site is a ride on one metro line. Athens Metro wayfinding, translated into the TWINMARK brand: station-tile white ground, indigo station signs that carry a Greek name with a smaller Latin name beneath, white rings on a single line drawn in the logo gradient (aqua, steel, indigo, harbour blue, teal), octilinear routing on the network map, amber LED figures on a row-based departure board, and teal reserved for the action. Scrolling is travelling: each kind of work is its own station, the brief is the terminus. Structure is the only ornament placed on the work itself.
 
-It is mature rather than plain. The header is white with the full-colour logo, and atmosphere comes from static brand-colour radial washes laid into the grounds (hero, the Video station's night ground, the Photos station's mist) plus one gradient terminus ground running teal-deep to harbour blue to indigo. Depth is real but quiet: the network map sits on a raised card, the website sits in a raised browser frame, the phones carry their own bezels, and the brief is the one card on the terminus. Nothing repaints on scroll to create atmosphere.
+It is mature rather than plain. The header is white with the full-colour logo, and atmosphere comes from static brand-colour radial washes laid into the grounds (hero, the Video station's night ground, the Photos station's mist) plus one gradient terminus ground running teal-deep to harbour blue to indigo. Depth is real but quiet: the network map sits on a raised card, the website sits in a raised browser frame with its phone version beside it, the phones carry their own bezels, and the brief is the one card on the terminus. Nothing repaints on scroll to create atmosphere.
 
-Photos and videos never mix. Each kind of work gets its own station and its own presentation (reels inside phones, posts as a passing strip of carriages, websites inside a browser), one figure per piece of work, real numbers only.
+Photos and videos never mix. Each kind of work gets its own station and its own presentation (reels inside phones, posts as a passing strip of carriages, websites inside a browser frame with a small phone frame beside it), one figure per piece of work, real numbers only.
 
 **Key Characteristics:**
 - One gradient line runs the page in a left lane; every section heading is a station sign mounted on a ring on that line.
@@ -263,9 +267,11 @@ The network map's labels are SVG presentation attributes in viewBox units, not C
 - **Line fill per section:** each station's line segment fills by transform scaleY, scrubbed from "top 62%" to "bottom 62%". 62% down the viewport is the tip horizon where the train rides (scrub 0.3 desktop, direct on phones).
 - **Station rings light** (class toggle, ring colour and scale 0.8 to 1 on brake) when their centre crosses the 62% tip.
 - **Doors:** station sign plates open from a centre-split `clip-path: inset(0 50% 0 50% round 999px)` (0.62s desktop, 0.5s phone, at top 78%); the website browser frame opens the same way with its 16px radius (1s desktop, 0.8s phone), and on desktop only its image settles from scale 1.08.
+- **The website's phone pulls out** from behind the browser (x from -70 desktop, -30 phones, with autoAlpha, brake, 1.1s / 0.8s, delay 0.35), once, on the browser's trigger.
+- **Live site on demand:** desktop with a fine pointer only, a "try it live" teal button inside the browser frame loads the live site in an iframe (rendered at 1440 x 900 and scaled to the frame with transform). Nothing loads until it is clicked; the iframe crossfades in over the capture (opacity 0.5s) once loaded. Phones and touch screens get only the link to the real site.
 - **Reels arrive laterally** (x from -90 on desktop, from 48 on phones, with autoAlpha, brake, stagger 0.11 / 0.08), once.
 - **The photo strip** passes sideways on a sticky stage while the page scrolls down: the track translates on x, scrubbed over a section height of viewport + strip distance x factor (0.6 desktop, 0.42 phone). The client-stop meter under it follows.
-- **Count-ups** (1.4s power2.out, tabular numerals) on the board and the pause figure, once.
+- **Count-ups** (1.4s power2.out, tabular numerals) on the board and the pause figure, once. A counting figure inside a sentence reserves its final width (the pause figure is an inline-block at min-width 7ch) so the text never re-wraps mid-count.
 - **How-we-work route** draws once (scaleX on desktop, scaleY on phones, brake).
 
 ### Where motion never happens
@@ -288,14 +294,14 @@ The old site lagged on every device. These patterns caused it and are banned:
 - A page-tall scroll-scrubbed SVG line with geometry rebuilt on scroll (the line is now CSS segments filled by scaleY).
 - Images spawned or animated on every scroll step.
 - Large blur filters and backdrop-filter.
-- Live iframe embeds (the website is a static capture inside a browser frame).
+- Live iframe embeds loaded with the page. The website is a static capture inside a browser frame; the only allowed live embed is the on-demand iframe described above (desktop, fine pointer, loaded on click, never on phones).
 - Several autoplaying videos at once.
 
 ## Layout
 
 A centred container (min(100% minus 2 x pad, 1320px), pad clamp(16px, 4vw, 56px)) with a left lane reserved for the line: 34px on phones, 108px from 900px. The line sits on its own layer under the content (rail), so full-bleed work (reels on phones, the photo strip, the terminus panel) crosses it the way a platform does. Station heads are a two-column grid: the ring in the lane, the sign beside it. Stations open with a step of clamp(96px, 12vw, 176px) and close at 0.7 of it.
 
-The hero is two columns from 1080px (headline, sub, actions and board left at 1.32fr; the map card right at 0.68fr, min 360px). Station intros split statement and lede into two equal columns from 1000px. Reels are a swipe row on phones and a four-column grid from 900px with even reels dropped 84px. Websites is 1.7fr frame to 1fr points from 1000px. How we work stacks on phones and runs four across from 900px. The header nav appears at 1120px; below it a menu sheet with its own short line. A fixed pill action bar (WhatsApp and brief) appears on phones past the hero.
+The hero is two columns from 1080px (headline, sub, actions and board left at 1.32fr; the map card right at 0.68fr, min 360px). Station intros split statement and lede into two equal columns from 1000px. Reels are a swipe row on phones and a four-column grid from 900px with even reels dropped 84px. Websites is 1.7fr devices to 1fr points from 1000px; the devices stage reserves 13% right and 6% bottom (20% under 600px) so the phone frame (25% wide, min 112px; 30% under 600px) can overlap the browser's lower right corner. How we work stacks on phones and runs four across from 900px. The header nav appears at 1120px; below it a menu sheet with its own short line. A fixed pill action bar (WhatsApp and brief) appears on phones past the hero.
 
 **The Lane Rule.** The left lane belongs to the line. Content starts after the lane; only full-bleed work crosses it.
 
@@ -306,7 +312,7 @@ A hybrid: grounds are flat and tonal (tile, mist, wall, night, the terminus grad
 ### Shadow Vocabulary
 - **Lift** (`box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 22px 40px -24px rgba(0,0,0,0.28)`): the departure board and each photo.
 - **Deep** (`box-shadow: 0 2px 6px rgba(0,0,0,0.06), 0 40px 70px -34px rgba(0,0,0,0.38)`): the network map card and the browser frame.
-- **Brief** (`box-shadow: 0 40px 80px -40px rgba(10,14,40,0.65)`): the brief card on the terminus gradient.
+- **Brief** (`box-shadow: 0 40px 80px -40px rgba(0,0,0,0.5)`): the brief card on the terminus gradient.
 - **Header** (`0 12px 30px -24px rgba(0,0,0,0.28)` once scrolled), **Menu sheet** (`0 30px 50px -30px rgba(0,0,0,0.36)`), **Action bar** (`0 20px 40px -16px rgba(0,0,0,0.4)`): the floating chrome.
 - **Play disc** (`0 10px 30px -8px` media-shadow): the reel play button.
 - **Go glow** (`box-shadow: 0 14px 28px -14px rgba(0,119,117,0.7)`): the teal primary button only.
@@ -317,7 +323,7 @@ A hybrid: grounds are flat and tonal (tile, mist, wall, night, the terminus grad
 
 ## Shapes
 
-Round is the system: fully round pills (999px) for signs, buttons, chips, the language switch, the action bar and badges; circles with thick borders for every stop (rings, the menu stops, the brief legs, the client meter, the Websites points). Rectangles only frame work, softened by size: focus and small chips 6px, the board 10px, photos and fields 12px, browser frame and contact rows 16px, brief 22px, map card and terminus 28px, phones 40px outer / 32px screen. Bars, tracks and small lines use the pill radius; there are no 2, 4, 8 or 20px corners. Lines have round caps; the map is routed octilinear.
+Round is the system: fully round pills (999px) for signs, buttons, chips, the language switch, the action bar and badges; circles with thick borders for every stop (rings, the menu stops, the brief legs, the client meter, the Websites points). Rectangles only frame work, softened by size: focus and small chips 6px, the board 10px, photos and fields 12px, browser frame and contact rows 16px, brief 22px, map card and terminus 28px, reel phones 40px outer / 32px screen, the website phone 26px / 21px (20px / 16px under 600px). Bars, tracks and small lines use the pill radius; there are no 2, 4, 8 or 20px corners. Lines have round caps; the map is routed octilinear.
 
 **The Ring Rule.** A stop is a white (or ground-coloured) circle with a heavy ink border. Unlit stops are grey and slightly smaller; lit or current stops are ink or teal.
 
@@ -338,19 +344,19 @@ The section heading. An indigo pill with the Greek name (sign role) and the Lati
 A near-black panel (board) with 10px corners and the lift shadow, one row per figure: an uppercase night-soft-ink label at left, an amber tabular figure at right, rows divided by 1px board-rule. The same board treatment appears inline as the view-count chip on each reel.
 
 ### Network Map Card (signature)
-A white card with a 1px #e3e8f1 border, 28px corners and the deep shadow. Inside, an SVG line map of the site in the brand gradient (12px stroke, round joins), unlit-ring grey branches, ring and pill stops in ink that turn teal on hover or focus; every stop is a link.
+A white card with a 1px rule border, 28px corners and the deep shadow. Inside, an SVG line map of the site in the brand gradient (12px stroke, round joins), unlit-ring grey branches, ring and pill stops in ink that turn teal on hover or focus; every stop is a link.
 
 ### Work Frames
 - **Phone:** a 9:16 screen inside a dark gradient bezel with an island, a platform chip (Instagram or TikTok) and a centred white play disc. One reel at a time.
 - **Photo strip:** posts at a shared height, native aspect ratio, 12px corners, lift shadow, caption under each taking the image's width.
-- **Browser:** 16px frame with a light bar, three neutral unlit-ring dots and a pill URL field, holding a static capture.
+- **Devices (Websites):** a browser frame (16px, rule border, deep shadow, wall-grey bar with three neutral unlit-ring dots and a pill URL link that turns teal on hover) holding a 1440:900 static capture, plus a small phone frame with the mobile capture overlapping its lower right. On desktop with a fine pointer a teal "try it live" button in the frame's lower left swaps in the live site on demand.
 
 ### Cards / Containers
 - **Terminus ground:** not a card. A 28px-radius gradient ground (teal-deep to harbour blue to indigo at 125deg, with aqua and ink washes), no shadow, white text; holds direct-contact rows (16px, white at 10% with a white 24% border; the main row is solid white) and the brief.
 - **Brief:** the only card. White, 22px corners, the brief shadow.
 
 ### Inputs / Fields
-- **Style:** 52px min height, 12px corners, 1.5px #d4dae6 border, #fbfcfe fill, text at body size (never under 16px, so iOS does not zoom); hover border unlit ring.
+- **Style:** 52px min height, 12px corners, 1.5px rule border, tile fill, soft-ink placeholder, text at body size (never under 16px, so iOS does not zoom); hover border unlit ring.
 - **Focus:** teal border, white fill, 4px teal halo at 15%.
 - **Error:** error-red border with a 12% red halo and a bold red message.
 
@@ -373,6 +379,6 @@ White sticky header (64px phone, 76px desktop) with the colour logo; a rule and 
 - **Don't** mix photos and videos in one presentation.
 - **Don't** add a second typeface; Geologica carries every role.
 - **Don't** use blur filters or backdrop-filter, or animate anything other than transform, opacity, stroke offsets and a single clip-path.
-- **Don't** scrub a page-tall SVG, spawn images on scroll, embed a live iframe, or autoplay more than one video.
+- **Don't** scrub a page-tall SVG, spawn images on scroll, load a live iframe with the page (live sites load only on click, desktop only), or autoplay more than one video.
 - **Don't** put a label or kicker above a heading; the sign is the heading.
 - **Don't** move body copy, the brief form (beyond its step change) or the footer.
