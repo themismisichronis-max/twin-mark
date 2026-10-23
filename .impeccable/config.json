@@ -1,0 +1,28 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "en/index.html",
+          "index.html"
+        ],
+        "createdAt": "2026-10-22T15:35:48.416Z",
+        "reason": "Claude: measured .plate insets are 20-28px at 390/1440 (flag fires while the door clip-path is closed); station 'flush' is the deliberate full-bleed reel row and photo strip"
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "en/index.html",
+          "index.html"
+        ],
+        "createdAt": "2026-10-22T15:35:48.431Z",
+        "reason": "Claude: only display headings (h1 76px at 0.98, terminus h3 57px at 1.02); body copy runs 1.55-1.6"
+      }
+    ]
+  }
+}

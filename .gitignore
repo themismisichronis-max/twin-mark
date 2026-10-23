@@ -1,0 +1,13 @@
+# dependencies and build output
+node_modules/
+dist/
+
+# local review artefacts and caches
+.impeccable/review/
+.impeccable/scratch/
+.impeccable/config.local.json
+.impeccable/hook.cache.json
+preview/
+
+# OS files
+.DS_Store
