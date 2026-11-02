@@ -120,7 +120,6 @@ body {
   font-weight: 350;
   color: var(--ink);
   background: var(--tile);
-  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
 
