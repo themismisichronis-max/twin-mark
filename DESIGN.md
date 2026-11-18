@@ -382,3 +382,96 @@ White sticky header (64px phone, 76px desktop) with the colour logo; a rule and 
 - **Don't** scrub a page-tall SVG, spawn images on scroll, load a live iframe with the page (live sites load only on click, desktop only), or autoplay more than one video.
 - **Don't** put a label or kicker above a heading; the sign is the heading.
 - **Don't** move body copy, the brief form (beyond its step change) or the footer.
+
+---
+
+# v2 · skill upgrade (2026-11-17, branch v2-skill-upgrade)
+
+Same structure (hero → Βίντεο → Φωτογραφίες → Ιστοσελίδες → Πώς δουλεύουμε → Επικοινωνία), same metro direction, same content, the logo colours and Geologica (approved by the owner, kept; no new type specimen run). New: logo intro, a 3D phone home object, Lenis, a velocity layer, a compact "How we work" board and a closing line in the footer.
+
+Depth: none. D-7 · LI-13 (the posts that turned over) was built and then removed on 2026-11-17 at the owner's request («το βρίσκω περιττό»). The owner then confirmed the site carries no depth idea (2026-11-17, «Χωρίς depth idea»). The gate's depth check fails by this decision, not by omission.
+
+## References
+Refero answered NO_SUBSCRIPTION, so these come from the standing library (`references/sites/`), read live:
+- **lenis.dev**: the smooth-scroll feel on every device and the idea of letting scroll speed bend things (ST-24 on the reel phones).
+- **touchycoffee.com**: a café's own product as the moving hero object; taken as "the reel that stops you" on a real phone.
+- **itsoffbrand.com**: a big, plain question as the last thing on the page; taken as the footer's closing line.
+- **landonorris.com**: a long expo-out brake on every arrival; it confirmed our existing "brake" ease rather than adding a new one.
+
+## Motion map
+| Where | What moves | Technique (library ID, tuned how) | Motif it shares | Phone |
+|---|---|---|---|---|
+| Intro | the mark draws its six lines, TWIN/MARK rise letter by letter out of slots cut from the real logo, the sign flies into the header | SV-02 stroke draw; TX-03 masked rise; F-01 timeline hand-off (Flip-style) | the line / brake | same, smaller sign |
+| Hero → Feed (seam) | the header logo the intro landed in stays; the feed stage claims its height at once | ST-23 Lenis start on intro-done | brake | same, native touch |
+| Feed (home object) | a real 3D phone: the feed flicks fast, brakes on Lizzy's reel, the camera orbits with scroll, beats count the views | R-01 · PH-09 (three r183), ST-13 pinned beats | brake | same scene, lower DPR |
+| Feed → Video (seam) | a night curtain rises out of the phone into #video | ST-13 curtain | night | same |
+| Video | the four reel phones lean with scroll speed (skewY ≤3°) | ST-24 velocity layer via Lenis | the line bends | ≤1.6° |
+| Photos | posts pass like carriages while you scroll down; each leans toward the cursor | site's carriage scrub (v1) | carriage / brake | no lean |
+| Photos → Web (seam) | the station rail's leg fills into the next stop | site's rail leg (v1) | the line | same |
+| Web | the website arrives through the same doors | site's doors (v1) | doors | same |
+| How we work | a train travels one short line to the active stop; the board decodes the step in Greek letters | SV-03 path travel; TX-05 scramble (Greek charset); ST-09 scroll-driven index; tap a stop | the line / station board | same, 4 stops in one row |
+| Contact | terminus sign, brief form steps | site's terminus (v1) | brake | same |
+| Footer | the closing question rises line by line, the white logo follows beside the last line (phone too, smaller) | TX-03 masked line rise | brake | same |
+
+## Flow
+| Seam | How it joins |
+|---|---|
+| Intro → hero | hand-off: the intro sign becomes the header logo |
+| Hero → feed | blend: hero gradient ends on the feed's mist, no tinted edge |
+| Feed → video | curtain: night rises out of the phone; the ΒΙΝΤΕΟ plate hangs on the seam |
+| Video → photos | dusk blend + hanging plate: night thins through indigo into mist (oklab ramp, no text on it), the ΦΩΤΟΓΡΑΦΙΑ plate hangs on the seam |
+| Photos → web | thread + hanging plate: rail leg fills into the next stop, plate centred on the seam |
+| Web → how | tonal step (mist → wall) bridged by the hanging plate |
+| How → contact | blend + hanging plate: wall fades into white, the line ends in the ΤΕΡΜΑ ring on the seam |
+| Contact → footer | overlap: the closing line sits on the same night as the contact card |
+
+## Requests
+| ID | Where this site applies it |
+|---|---|
+| R-01 | Home object: a real 3D phone (three r183, route "real 3D") showing the owner's own reels; source: assets/media/reels (their files). Free, no credits. |
+| R-02 | One motion system: line, brake, doors, night; every section has a row in the Motion map. |
+| R-03 | Sections joined by the rail thread, the night curtain and the hand-offs (Flow table). |
+| R-04 | Geologica kept: the owner approved it in v1. |
+| R-05 | Logo colours kept (two quiet blues, loud teal/aqua), per the owner. |
+| R-06 | Lenis on every device (ST-23), touch native, menu stop/start, anchors via lenis.scrollTo. |
+| R-07 | Every scene has its phone version (Motion map, Phone column); checked at 390px. |
+| R-08 | No-JS and reduced motion: static poster, plain 4-stop list, both faces never hidden; checked with qa/fallback.mjs. |
+| R-09 | Only their posts, reels, logo and stats from their own screenshots (520K, 89.1K). |
+| R-10 | No placeholder text; every button works. |
+| R-11 | Logo intro, once per session, skippable (assets/js/intro.js). |
+| R-12 | Signature (3D phone, PH-09) differs from ST-04, ST-17, PH-07. |
+| R-13 | The owner's notes from this round go to lessons/inbox.md at hand-off. |
+| R-14 | No credits spent; nothing published or deployed without the owner's yes. |
+| R-15 | Preview checked on desktop and phone before the owner sees it. |
+
+## Casting
+| Page moment | Candidates | Chosen | Why |
+|---|---|---|---|
+| Intro | SV-02 + TX-03 logo build · TX-10 · a plain first frame | SV-02 + TX-03 + F-01 | R-11; letters cut from the real logo |
+| Home object | PH-09 3D · PH-05 · PH-07 film | PH-09 | real 3D from their own reels, no credits; PH-07 was a recent signature |
+| Feed beats | ST-13 · ST-05 · TX-04 | ST-13 | pinned beats over the phone |
+| Video | ST-24 · ST-05 · LI-08 | ST-24 | velocity needs Lenis, which is new here |
+| Photos depth | LI-13 · LI-05 · ST-08 | none (LI-13 removed by the owner 2026-11-17) | the posts speak for themselves |
+| How we work | SV-03 + TX-05 board · TX-10 · ST-09 list | SV-03 + TX-05 + ST-09 | half the height, keeps the metro board idea |
+| Footer | TX-03 rise · giant wordmark · logo only | TX-03 | wordmark file is 227px wide, too small to set full width |
+
+Far/near stations (2026-11-17, owner's yes): from 1000px the stations alternate sides. Βίντεο near, Φωτογραφίες far, Ιστοσελίδες near, Πώς δουλεύουμε far, Τέρμα near. On a far station the hanging plate starts over the right column, the statement sits right and the lede (or the board) left (`.station--far`). Phones keep one column. Measured 1440: layouts 2l,1-,4l,4r,4l,2r,3l, layoutRepeat 0 (GR and EN), colourJump 16.8 / 16.5, hardSeams 0, bridged 0.83, gapPx 80 / 0.
+
+## Exploration
+| Axis | This site | Last site | Same? |
+|---|---|---|---|
+| reference use | 4 standing-library sites, lead lenis.dev | 4 standing-library sites, lead impossiblefoods | no |
+| intro | logo strokes + letters from the real file, hand-off to the header | skyline rises, D·A·M drop with bounce | no |
+| hero | metro board with real view counts | giant condensed claim with pizza | no |
+| home structure | 6 stations on one line (unchanged) | 4 beats | no |
+| structure device | metro rail thread | wavy pan-edge seams | no |
+| ground | mist → night → wall | petrol → pan black → cream | no |
+| accent | teal / aqua from the logo | pepperoni red | no |
+| type | Geologica | Roboto Flex + Noto Sans Mono | no |
+| reviews | real stats on the reels | one quote in the story | no |
+| signature scene | real 3D phone with their reel | scroll-scrubbed pizza film | no |
+| booking | WhatsApp + brief form | Wolt + call | no |
+| footer | closing question + white logo beside it, one hairline, © row (nav/contact block removed 2026-11-17) | not in scope | no |
+
+
+Flow measured 2026-11-17 (seam-metrics, 1440): colourJump 16 (GR) / 15.9 (EN), hardSeams 0, bridged 0.83, gapPx 80 / 0. layoutRepeat 0.5 was then fixed with far/near stations (below).

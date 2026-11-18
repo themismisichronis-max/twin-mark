@@ -38,6 +38,7 @@
     if (!menuBtn || !menu) return;
     menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
     menu.hidden = !open;
+    if (window.lenis) { if (open) window.lenis.stop(); else window.lenis.start(); }
     if (open) sign.classList.remove("is-away");
   }
 
@@ -68,7 +69,8 @@
     setMenu(false);
     var navH = sign ? sign.offsetHeight : 0;
     var y = target.getBoundingClientRect().top + window.scrollY - (id === "top" ? 0 : navH * 0.25);
-    window.scrollTo({ top: Math.max(0, y), behavior: reduceMotion ? "auto" : "smooth" });
+    if (window.lenis && !reduceMotion) window.lenis.scrollTo(Math.max(0, y), { duration: 1.4 });
+    else window.scrollTo({ top: Math.max(0, y), behavior: reduceMotion ? "auto" : "smooth" });
     if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
     target.focus({ preventScroll: true });
     if (history.replaceState) history.replaceState(null, "", "#" + id);
@@ -122,18 +124,6 @@
       var section = doc.getElementById(id);
       if (section) here.observe(section);
     });
-  }
-
-  /* ---------- phone action bar: after the departure, before the terminus ---------- */
-
-  var bar = doc.querySelector("[data-actionbar]");
-  var hero = doc.getElementById("top");
-  var contact = doc.getElementById("contact");
-  if (bar && hero && contact && io) {
-    var pastHero = false, atEnd = false;
-    var update = function () { bar.classList.toggle("is-on", pastHero && !atEnd); };
-    new IntersectionObserver(function (e) { pastHero = !e[0].isIntersecting; update(); }).observe(hero);
-    new IntersectionObserver(function (e) { atEnd = e[0].isIntersecting; update(); }, { rootMargin: "0px 0px -20% 0px" }).observe(contact);
   }
 
   /* ---------- reels: one plays at a time, only while on screen ---------- */

@@ -11,3 +11,6 @@ preview/
 
 # OS files
 .DS_Store
+
+# QA output (scripts, screenshots, videos)
+qa/

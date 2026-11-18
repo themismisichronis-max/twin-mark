@@ -14,6 +14,7 @@ def sub(old, new, count=1):
     h = h.replace(old, new)
 
 # paths
+h = h.replace('href="/favicon.ico"', 'href="/favicon.ico"')
 h = re.sub(r'(src|href|srcset|poster)="assets/', r'\1="../assets/', h)
 h = re.sub(r'(, )assets/', r'\1../assets/', h)
 h = h.replace("url(assets/", "url(../assets/")
@@ -77,13 +78,14 @@ pairs = [
  ('<q class="reel__quote">Η Μαμά Ντίνα', '<q class="reel__quote" lang="el">Η Μαμά Ντίνα'),
  ('<q class="reel__quote">Το πρώτο μενού', '<q class="reel__quote" lang="el">Το πρώτο μενού'),
  ('<q class="reel__quote" lang="en">Do these', '<q class="reel__quote">Do these'),
- ('</svg>4.418</span>', '</svg>4,418</span>'),
- ('</svg>1.332</span>', '</svg>1,332</span>'),
+ ('</svg>5.322</span>', '</svg>5,322</span>'),
+ ('</svg>1.334</span>', '</svg>1,334</span>'),
+ ('</svg>89,1K</span>', '</svg>89.1K</span>'),
  ('</svg>24,4K</span>', '</svg>24.4K</span>'),
  ('</svg>4.825</span>', '</svg>4,825</span>'),
  ('Δες το στο Instagram<svg', 'Watch on Instagram<svg', 2),
  ('Δες το στο TikTok<svg', 'Watch on TikTok<svg', 2),
- ('<span class="figure" data-count="479000" data-count-format="full">479.000</span> προβολές για ένα reel ενός καφέ στη Νέα Χαλκηδόνα.', '<span class="figure" data-count="479000" data-count-format="full">479,000</span> views for one reel from a café in Nea Chalkidona.'),
+ ('<span class="figure" data-count="520000" data-count-format="full">520.000</span> προβολές για ένα reel ενός καφέ στη Νέα Χαλκηδόνα.', '<span class="figure" data-count="520000" data-count-format="full">520,000</span> views for one reel from a café in Nea Chalkidona.'),
  ('<span class="plate__name">ΦΩΤΟΓΡΑΦΙΑ</span><span class="plate__latin" lang="en">Static posts</span>', '<span class="plate__name">PHOTOS</span><span class="plate__latin" lang="el">Φωτογραφία</span>'),
  ('<p class="statement">Feeds που μοιάζουν με brand, όχι με template.</p>', '<p class="statement">Feeds that look like brands, not templates.</p>'),
  ('Στατικά posts με art direction: φωτογραφία προϊόντος, τυπογραφία και layouts, σχεδιασμένα για κάθε πελάτη ξεχωριστά.', 'Art-directed static posts: product photography, typography and layouts, designed for each client.'),
@@ -116,11 +118,12 @@ pairs = [
  ('<b>Δεμένο με τα social</b><p>Feed, κριτικές και κρατήσεις, ένα tap μακριά.</p>', '<b>Connected to your socials</b><p>Feed, reviews and bookings, one tap away.</p>'),
  ('<span class="plate__name">ΠΩΣ ΔΟΥΛΕΥΟΥΜΕ</span><span class="plate__latin" lang="en">How we work</span>', '<span class="plate__name">HOW WE WORK</span><span class="plate__latin" lang="el">Πώς δουλεύουμε</span>'),
  ('<p class="statement">Μιλάς απευθείας με όσους φτιάχνουν το περιεχόμενό σου.</p>', '<p class="statement">You talk directly to the people who make your content.</p>'),
- ('Είμαστε δύο αδέρφια και κάνουμε τα πάντα μόνοι μας, από την πρώτη ιδέα μέχρι τα νούμερα του μήνα.', 'We’re two siblings and we do everything ourselves, from the first idea to the month’s numbers.'),
- ('<h3>Γνωριμία</h3><p>Μαθαίνουμε το μαγαζί σου, το κοινό του και τι θέλεις να πετύχεις.</p>', '<h3>Getting to know you</h3><p>We learn your place, its crowd and what you want to achieve.</p>'),
- ('<h3>Πλάνο</h3><p>Content calendar με ιδέες, scripts και ημερομηνίες, για να ξέρεις τι έρχεται.</p>', '<h3>Plan</h3><p>A content calendar with ideas, scripts and dates, so you know what’s coming.</p>'),
- ('<h3>Παραγωγή</h3><p>Γύρισμα, μοντάζ, design και captions. Όλα in-house.</p>', '<h3>Production</h3><p>Shooting, editing, design and captions. All in-house.</p>'),
- ('<h3>Ανάρτηση</h3><p>Ανεβάζουμε, κοιτάμε τα νούμερα και προσαρμόζουμε τον επόμενο μήνα.</p>', '<h3>Posting</h3><p>We publish, read the numbers and adjust the next month.</p>'),
+ ('Δύο αδέρφια, όλα in-house, από την πρώτη ιδέα μέχρι τα νούμερα του μήνα.', 'Two siblings, all in-house, from the first idea to the month’s numbers.'),
+ ('Στάση <b data-how-num>01</b> / 04', 'Stop <b data-how-num>01</b> / 04'),
+ ('<h3><span class="how__n">01</span>Γνωριμία</h3><p>Μαθαίνουμε το μαγαζί σου, το κοινό του και τι θέλεις να πετύχεις.</p>', '<h3><span class="how__n">01</span>Getting to know you</h3><p>We learn your place, its crowd and what you want to achieve.</p>'),
+ ('<h3><span class="how__n">02</span>Πλάνο</h3><p>Content calendar με ιδέες, scripts και ημερομηνίες, για να ξέρεις τι έρχεται.</p>', '<h3><span class="how__n">02</span>Plan</h3><p>A content calendar with ideas, scripts and dates, so you know what’s coming.</p>'),
+ ('<h3><span class="how__n">03</span>Παραγωγή</h3><p>Γύρισμα, μοντάζ, design και captions. Όλα in-house.</p>', '<h3><span class="how__n">03</span>Production</h3><p>Shooting, editing, design and captions. All in-house.</p>'),
+ ('<h3><span class="how__n">04</span>Ανάρτηση</h3><p>Ανεβάζουμε, κοιτάμε τα νούμερα και προσαρμόζουμε τον επόμενο μήνα.</p>', '<h3><span class="how__n">04</span>Posting</h3><p>We publish, read the numbers and adjust the next month.</p>'),
  ('<span class="plate__name">ΤΕΡΜΑ</span><span class="plate__latin" lang="en">Contact</span>', '<span class="plate__name">TERMINUS</span><span class="plate__latin" lang="el">Επικοινωνία</span>'),
  ('<h3>Ας κάνουμε το μαγαζί σου το αγαπημένο της γειτονιάς.</h3>', '<h3>Let’s make your place the neighbourhood favourite.</h3>'),
  ('Γράψε μας κατευθείαν ή στείλε ένα σύντομο brief. Απαντάμε μέσα σε μία εργάσιμη.', 'Message us directly or send a short brief. We reply within one working day.'),
@@ -165,13 +168,20 @@ pairs = [
  ('data-brief-send>Στείλε το brief</button>', 'data-brief-send>Send the brief</button>'),
  ('<h4>Το πήραμε, ευχαριστούμε!</h4>', '<h4>Got it, thank you!</h4>'),
  ('<p>Θα σου απαντήσουμε μέσα σε μία εργάσιμη. Στο μεταξύ, ρίξε μια ματιά στα <a href="#video">βίντεο</a>.</p>', '<p>We’ll reply within one working day. Meanwhile, have a look at the <a href="#video">videos</a>.</p>'),
- ('<p>Δύο αδέρφια. Ένα σήμα. Social media για τοπικές επιχειρήσεις στην Αθήνα.</p>', '<p>Two siblings. One mark. Social media for local businesses in Athens.</p>'),
- ('<nav aria-label="Σταθμοί">\n          <h2>Σταθμοί</h2>', '<nav aria-label="Stops">\n          <h2>Stops</h2>'),
- ('<h2>Επικοινωνία</h2>', '<h2>Contact</h2>'),
- ('aria-label="TWINMARK στο Instagram"', 'aria-label="TWINMARK on Instagram"'),
- ('aria-label="TWINMARK στο WhatsApp"', 'aria-label="TWINMARK on WhatsApp"'),
- ('aria-label="Κάλεσε το TWINMARK"', 'aria-label="Call TWINMARK"'),
- ('TWINMARK. Αθήνα.</span><a href="en/" hreflang="en" lang="en">English version</a>', 'TWINMARK. Athens.</span><a href="../" hreflang="el" lang="el">Ελληνική έκδοση</a>'),
+ ('<span class="foot__l"><span>Το επόμενο post που</span></span> <span class="foot__l"><span>σταματά το scroll;</span></span> <span class="foot__l foot__l--b"><span>Ας είναι δικό σου.</span></span>', '<span class="foot__l"><span>The next post that</span></span> <span class="foot__l"><span>stops the scroll?</span></span> <span class="foot__l foot__l--b"><span>Make it yours.</span></span>'),
+ ('aria-label="Το reel που σε σταματάει"', 'aria-label="The reel that stops you"'),
+ ('alt="Reel για το Lizzy\'s Coffee &amp; more: POV, δουλεύεις με Gen Z"', 'alt="Reel for Lizzy\'s Coffee &amp; more: POV, you work with Gen Z"'),
+ ('<p class="feed3d__big">Σκρολάρεις.</p>', '<p class="feed3d__big">You scroll.</p>'),
+ ('<p class="feed3d__big">Κάτι σε σταματάει.</p>', '<p class="feed3d__big">Something stops you.</p>'),
+ ('<span class="feed3d__fig">520K</span> προβολές.</p>', '<span class="feed3d__fig">520K</span> views.</p>'),
+ ('Ένα reel για ένα καφέ στη Νέα Χαλκηδόνα, <span lang="en">', 'One reel for a café in Nea Chalkidona, <span lang="en">'),
+ ('<p class="feed3d__big">Αυτό φτιάχνουμε.</p>', '<p class="feed3d__big">This is what we make.</p>'),
+ ('href="#video">Δες τα βίντεο<svg', 'href="#video">See the videos<svg'),
+ ('TWINMARK · Αθήνα · <a href="mailto:hello@twinmark.gr">hello@twinmark.gr</a></span><span class="foot__links"><a href="privacy/">Απόρρητο</a><a href="en/" hreflang="en" lang="en">English version</a></span>', 'TWINMARK · Athens · <a href="mailto:hello@twinmark.gr">hello@twinmark.gr</a></span><span class="foot__links"><a href="privacy/">Privacy</a><a href="../" hreflang="el" lang="el">Ελληνική έκδοση</a></span>'),
+ ('Τα στοιχεία σου τα χρησιμοποιούμε μόνο για να σου απαντήσουμε. <a href="privacy/">Πολιτική απορρήτου</a>', 'We use your details only to reply to you. <a href="privacy/">Privacy policy</a>'),
+ ('content="TWINMARK: Δύο αδέρφια. Ένα σήμα. Η γραμμή TWINMARK με τις στάσεις της."', 'content="TWINMARK: Two siblings. One mark. The TWINMARK line and its stops."'),
+ ('"description": "Δύο αδέρφια στην Αθήνα που φτιάχνουν Instagram και TikTok για τοπικές επιχειρήσεις: reels, posts, captions και websites."', '"description": "Two siblings in Athens making Instagram and TikTok for local businesses: reels, posts, captions and websites."'),
+ ('"name": "Αθήνα"}', '"name": "Athens"}'),
 ]
 for p in pairs:
     if len(p) == 3: sub(p[0], p[1], p[2])

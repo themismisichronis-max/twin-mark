@@ -20,7 +20,7 @@ The site is TWINMARK's own shop window. It must show real work that performed, e
 
 ## Positioning
 
-A two-person studio run by siblings ("TWIN") that makes everything in-house: scripting, shooting, editing, designing and posting. Small enough that the owner talks to the people who make the content; proven by real local results (a Lizzy's reel at 479K views, Xagk TikTok at 89K).
+A two-person studio run by siblings ("TWIN") that makes everything in-house: scripting, shooting, editing, designing and posting. Small enough that the owner talks to the people who make the content; proven by real local results (a Lizzy's reel at 520K views, Xagk TikTok at 89.1K).
 
 ## Operating Context
 
@@ -45,10 +45,10 @@ A two-person studio run by siblings ("TWIN") that makes everything in-house: scr
 
 All confirmed current by the owner on 2026-10-22.
 
-- Featured numbers: 597K+ views on featured work, 6 local brands taken on at some point (not all are current clients; never say "we run" them; owner correction 2026-10-23), 100% produced in-house.
+- Featured numbers: 638K+ views on featured work (updated 2026-11-17), 6 local brands taken on at some point (not all are current clients; never say "we run" them; owner correction 2026-10-23), 100% produced in-house.
 - Videos (`assets/video/`, 540×960 H.264 + posters):
-  - Lizzy's `reel-lizzys-genz.mp4`: «POV: Δουλεύεις με Gen Z», Instagram, 479K views, 4,418 likes, 37 comments. https://www.instagram.com/p/DaNm9PaKmuY/
-  - Xagk `tiktok-xagk.mp4`: «Η Μαμά Ντίνα πάντα έχει τον δικό της τρόπο», TikTok, 89K views, 1,332 likes, 8 comments, 49 shares. https://www.tiktok.com/@_xagk_/video/7607918673914875158
+  - Lizzy's `reel-lizzys-genz.mp4`: «POV: Δουλεύεις με Gen Z», Instagram, 520K views, 5,322 likes, 46 comments (2026-11-17). https://www.instagram.com/p/DaNm9PaKmuY/
+  - Xagk `tiktok-xagk.mp4`: «Η Μαμά Ντίνα πάντα έχει τον δικό της τρόπο», TikTok, 89.1K views, 1,334 likes, 8 comments, 72 saves, 49 shares (2026-11-17). https://www.tiktok.com/@_xagk_/video/7607918673914875158
   - Chef BF `tiktok-chefbf.mp4`: «Το πρώτο μενού του καναλιού», TikTok, 24.4K views, 623 likes, 27 comments, 15 shares. https://www.tiktok.com/@chefbf/video/7610007940547874070
   - Eleanna Sotiriou `reel-posture.mp4`: "Do these exercises for better posture", Instagram, 4,825 views, 136 likes, 4 comments. https://www.instagram.com/reel/DT2zwgbjOyX/
 - Static posts (`assets/media/work/`): Lizzy's (croissants, cherry drink, soda, Lizzy's Time, brunch, firefly iced tea), Xagk (spinach pie, Greek salad, blue spirulina latte, take a break), Chef BF (night dinner), Lousi Rosi (eyelashes), Blue Dreams Flisvos (three posts), Wellness Physio Pilates. The YumTales post was removed at the owner's request (2026-10-23); do not show it.

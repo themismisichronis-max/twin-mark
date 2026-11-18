@@ -10,17 +10,23 @@
   <link rel="alternate" hreflang="el" href="https://twinmark.gr/" />
   <link rel="alternate" hreflang="en" href="https://twinmark.gr/en/" />
   <link rel="alternate" hreflang="x-default" href="https://twinmark.gr/" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://twinmark.gr/#org", "name": "TWINMARK", "url": "https://twinmark.gr/", "logo": "https://twinmark.gr/assets/img/icons/icon-512.png", "image": "https://twinmark.gr/assets/img/og.jpg", "description": "Δύο αδέρφια στην Αθήνα που φτιάχνουν Instagram και TikTok για τοπικές επιχειρήσεις: reels, posts, captions και websites.", "email": "hello@twinmark.gr", "telephone": "+306983760254", "areaServed": {"@type": "City", "name": "Αθήνα"}, "knowsLanguage": ["el", "en"], "sameAs": ["https://www.instagram.com/twinmark_/"]}</script>
 
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="el_GR" />
   <meta property="og:url" content="https://twinmark.gr/" />
   <meta property="og:title" content="TWINMARK · Δύο αδέρφια. Ένα σήμα." />
   <meta property="og:description" content="Περιεχόμενο που σε σταματάει. Instagram, TikTok και websites για τοπικές επιχειρήσεις στην Αθήνα." />
-  <meta property="og:image" content="https://twinmark.gr/assets/img/logo-full.png" />
+  <meta property="og:image" content="https://twinmark.gr/assets/img/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="TWINMARK: Δύο αδέρφια. Ένα σήμα. Η γραμμή TWINMARK με τις στάσεις της." />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="icon" href="assets/media/brand/mark.svg" type="image/svg+xml" />
-  <link rel="icon" href="assets/img/logo-mark.png" type="image/png" />
-  <link rel="apple-touch-icon" href="assets/img/logo-mark.png" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="apple-touch-icon" href="assets/img/icons/icon-180.png" />
+  <link rel="manifest" href="/site.webmanifest" />
 
   <link rel="preload" href="assets/fonts/geologica-greek-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/geologica-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
@@ -31,9 +37,17 @@
       if (!window.matchMedia || !matchMedia("(prefers-reduced-motion: no-preference)").matches) return;
       root.classList.add("motion-pending");
       window.__motionFailsafe = setTimeout(function () { root.classList.remove("motion-pending"); }, 2500);
+      /* R-11 logo intro: once per session, only on a fresh visit to the top */
+      var seen = false;
+      try { seen = sessionStorage.getItem("twm-intro") === "1"; } catch (e) {}
+      if (/[?&]intro\b/.test(location.search)) seen = false;
+      if (!seen && !location.hash) {
+        root.classList.add("intro-on");
+        window.__introFailsafe = setTimeout(function () { root.classList.remove("intro-on"); }, 6000);
+      }
     })(document.documentElement);
   </script>
-  <link rel="stylesheet" href="assets/css/site.css?v=17" />
+  <link rel="stylesheet" href="assets/css/site.css?v=35" />
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -51,6 +65,22 @@
     <symbol id="i-out" viewBox="0 0 24 24"><path d="M14 3h7v7h-2V6.4l-8.3 8.3-1.4-1.4L17.6 5H14V3zM4 6h7v2H6v10h10v-5h2v7H4V6z"/></symbol>
     <symbol id="i-check" viewBox="0 0 54 54"><circle cx="27" cy="27" r="25" fill="#007775"/><path d="M16 28l7.5 7.5L39 20" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </svg>
+
+  <div class="lintro" data-intro aria-hidden="true">
+    <div class="lintro__ground" data-intro-ground></div>
+    <div class="lintro__sign" data-intro-sign>
+      <svg class="lintro__mark" data-intro-mark viewBox="0 0 100 100" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="ih" gradientUnits="userSpaceOnUse" x1="5" y1="0" x2="95" y2="0"><stop offset="0" stop-color="#7acfd6"/><stop offset=".55" stop-color="#5384b7"/><stop offset="1" stop-color="#2e3192"/></linearGradient>
+          <linearGradient id="iv" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="90" y2="0"><stop offset="0" stop-color="#7acfd6"/><stop offset=".5" stop-color="#3a9ba3"/><stop offset="1" stop-color="#007775"/></linearGradient>
+        </defs>
+        <g fill="none" stroke-width="10" stroke-linecap="square">
+          <path d="M5 5V95" stroke="#7acfd6"/><path d="M5 5H95" stroke="url(#ih)"/><path d="M10 8 50 72 90 8" stroke="url(#iv)" stroke-linecap="butt"/><path d="M50 5V95" stroke="#5384b7"/><path d="M5 95H95" stroke="url(#ih)"/><path d="M95 5V95" stroke="#007775"/>
+        </g>
+      </svg>
+      <span class="lintro__markink" data-intro-markink></span>
+    </div>
+  </div>
 
   <a class="skip" href="#main">Μετάβαση στο περιεχόμενο</a>
 
@@ -105,7 +135,7 @@
 
           <aside class="board" aria-label="Τα νούμερά μας">
             <dl>
-              <div class="board__row"><dt>Προβολές σε επιλεγμένες δουλειές</dt><dd data-count="597000" data-count-format="k" data-count-suffix="+" data-motion-hide>597K+</dd></div>
+              <div class="board__row"><dt>Προβολές σε επιλεγμένες δουλειές</dt><dd data-count="638000" data-count-format="k" data-count-suffix="+" data-motion-hide>638K+</dd></div>
               <div class="board__row"><dt>Τοπικά brands που έχουμε αναλάβει</dt><dd data-count="6" data-motion-hide>6</dd></div>
               <div class="board__row"><dt>Παραγωγή in-house</dt><dd data-count="100" data-count-suffix="%" data-motion-hide>100%</dd></div>
             </dl>
@@ -186,6 +216,23 @@
       </div>
     </section>
 
+    <!-- Bridge · the feed that stops (R-01, assets/js/feed3d.js) -->
+    <section class="feed3d" id="feed" aria-label="Το reel που σε σταματάει" data-feed3d>
+      <div class="feed3d__stage">
+        <div class="feed3d__night" aria-hidden="true"></div>
+        <canvas class="feed3d__canvas" aria-hidden="true"></canvas>
+        <figure class="feed3d__poster">
+          <div class="phone"><div class="phone__screen"><img src="assets/media/reels/reel-lizzys-genz.webp" alt="Reel για το Lizzy's Coffee &amp; more: POV, δουλεύεις με Gen Z" width="540" height="960" loading="lazy" decoding="async" /><span class="phone__island" aria-hidden="true"></span></div></div>
+        </figure>
+        <ol class="feed3d__beats" data-allow-hidden>
+          <li data-beat="0"><p class="feed3d__big">Σκρολάρεις.</p></li>
+          <li data-beat="1"><p class="feed3d__big">Κάτι σε σταματάει.</p></li>
+          <li data-beat="2" class="is-night"><p class="feed3d__big"><span class="feed3d__fig">520K</span> προβολές.</p><p class="feed3d__small">Ένα reel για ένα καφέ στη Νέα Χαλκηδόνα, <span lang="en">@lizzys_coffee_and_more</span>.</p></li>
+          <li data-beat="3" class="is-night"><p class="feed3d__big">Αυτό φτιάχνουμε.</p><a class="feed3d__next" href="#video">Δες τα βίντεο<svg aria-hidden="true"><use href="#i-right" /></svg></a></li>
+        </ol>
+      </div>
+    </section>
+
     <!-- Station 01 · Video -->
     <section class="station station--v station--night" id="video" aria-labelledby="st-video">
       <div class="rail" aria-hidden="true"><div class="wrap"><div class="track"><div class="track__fill" data-leg></div></div></div></div>
@@ -224,9 +271,9 @@
                 <span class="reel__who">@lizzys_coffee_and_more</span>
                 <q class="reel__quote" lang="el">POV: Δουλεύεις με Gen Z</q>
                 <span class="stats">
-                  <span class="views"><svg aria-hidden="true"><use href="#i-play" /></svg>479K</span>
-                  <span><svg aria-hidden="true"><use href="#i-heart" /></svg>4.418</span>
-                  <span><svg aria-hidden="true"><use href="#i-comment" /></svg>37</span>
+                  <span class="views"><svg aria-hidden="true"><use href="#i-play" /></svg>520K</span>
+                  <span><svg aria-hidden="true"><use href="#i-heart" /></svg>5.322</span>
+                  <span><svg aria-hidden="true"><use href="#i-comment" /></svg>46</span>
                 </span>
                 <a class="link-out" href="https://www.instagram.com/p/DaNm9PaKmuY/" target="_blank" rel="noopener">Δες το στο Instagram<svg aria-hidden="true"><use href="#i-out" /></svg></a>
               </figcaption>
@@ -248,8 +295,8 @@
                 <span class="reel__who">@_xagk_</span>
                 <q class="reel__quote">Η Μαμά Ντίνα πάντα έχει τον δικό της τρόπο</q>
                 <span class="stats">
-                  <span class="views"><svg aria-hidden="true"><use href="#i-play" /></svg>89K</span>
-                  <span><svg aria-hidden="true"><use href="#i-heart" /></svg>1.332</span>
+                  <span class="views"><svg aria-hidden="true"><use href="#i-play" /></svg>89,1K</span>
+                  <span><svg aria-hidden="true"><use href="#i-heart" /></svg>1.334</span>
                   <span><svg aria-hidden="true"><use href="#i-comment" /></svg>8</span>
                   <span><svg aria-hidden="true"><use href="#i-share" /></svg>49</span>
                 </span>
@@ -309,14 +356,14 @@
         </ul>
 
         <div class="pause">
-          <p><span class="figure" data-count="479000" data-count-format="full">479.000</span> προβολές για ένα reel ενός καφέ στη Νέα Χαλκηδόνα.</p>
+          <p><span class="figure" data-count="520000" data-count-format="full">520.000</span> προβολές για ένα reel ενός καφέ στη Νέα Χαλκηδόνα.</p>
           <p>Lizzy's Coffee &amp; more · «POV: Δουλεύεις με Gen Z» · Instagram</p>
         </div>
       </div>
     </section>
 
     <!-- Station 02 · Photos -->
-    <section class="station station--p station--mist" id="photos" aria-labelledby="st-photos">
+    <section class="station station--p station--mist station--far" id="photos" aria-labelledby="st-photos">
       <div class="rail" aria-hidden="true"><div class="wrap"><div class="track"><div class="track__fill" data-leg></div></div></div></div>
       <div class="wrap lane">
         <div class="head">
@@ -425,7 +472,7 @@
     </section>
 
     <!-- Station 04 · How we work -->
-    <section class="station station--h station--wall" id="how" aria-labelledby="st-how">
+    <section class="station station--h station--wall station--far" id="how" aria-labelledby="st-how">
       <div class="rail" aria-hidden="true"><div class="wrap"><div class="track"><div class="track__fill" data-leg></div></div></div></div>
       <div class="wrap lane">
         <div class="head">
@@ -434,18 +481,23 @@
             <h2 id="st-how"><span class="plate__name">ΠΩΣ ΔΟΥΛΕΥΟΥΜΕ</span><span class="plate__latin" lang="en">How we work</span></h2>
           </div>
         </div>
-        <div class="intro">
-          <p class="statement">Μιλάς απευθείας με όσους φτιάχνουν το περιεχόμενό σου.</p>
-          <p class="lede">Είμαστε δύο αδέρφια και κάνουμε τα πάντα μόνοι μας, από την πρώτη ιδέα μέχρι τα νούμερα του μήνα.</p>
-        </div>
-        <div class="route" data-route>
-          <span class="route__line" aria-hidden="true" data-route-line></span>
-          <ol class="route__list">
-          <li><div><h3>Γνωριμία</h3><p>Μαθαίνουμε το μαγαζί σου, το κοινό του και τι θέλεις να πετύχεις.</p></div></li>
-          <li><div><h3>Πλάνο</h3><p>Content calendar με ιδέες, scripts και ημερομηνίες, για να ξέρεις τι έρχεται.</p></div></li>
-          <li><div><h3>Παραγωγή</h3><p>Γύρισμα, μοντάζ, design και captions. Όλα in-house.</p></div></li>
-          <li><div><h3>Ανάρτηση</h3><p>Ανεβάζουμε, κοιτάμε τα νούμερα και προσαρμόζουμε τον επόμενο μήνα.</p></div></li>
-          </ol>
+        <div class="how" data-how>
+          <div class="how__say">
+            <p class="statement">Μιλάς απευθείας με όσους φτιάχνουν το περιεχόμενό σου.</p>
+            <p class="lede">Δύο αδέρφια, όλα in-house, από την πρώτη ιδέα μέχρι τα νούμερα του μήνα.</p>
+          </div>
+          <div class="how__line">
+            <ol class="how__stops" data-how-stops>
+              <li data-how-stop><h3><span class="how__n">01</span>Γνωριμία</h3><p>Μαθαίνουμε το μαγαζί σου, το κοινό του και τι θέλεις να πετύχεις.</p></li>
+              <li data-how-stop><h3><span class="how__n">02</span>Πλάνο</h3><p>Content calendar με ιδέες, scripts και ημερομηνίες, για να ξέρεις τι έρχεται.</p></li>
+              <li data-how-stop><h3><span class="how__n">03</span>Παραγωγή</h3><p>Γύρισμα, μοντάζ, design και captions. Όλα in-house.</p></li>
+              <li data-how-stop><h3><span class="how__n">04</span>Ανάρτηση</h3><p>Ανεβάζουμε, κοιτάμε τα νούμερα και προσαρμόζουμε τον επόμενο μήνα.</p></li>
+            </ol>
+            <div class="how__board" aria-hidden="true" hidden data-how-board>
+              <span class="how__now">Στάση <b data-how-num>01</b> / 04</span>
+              <p class="how__text" data-how-text></p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -559,6 +611,7 @@
                 <button class="btn btn--go" type="button" data-brief-next hidden>Επόμενο<svg aria-hidden="true"><use href="#i-right" /></svg></button>
                 <button class="btn btn--go" type="submit" data-brief-send>Στείλε το brief</button>
               </div>
+              <p class="brief__legal">Τα στοιχεία σου τα χρησιμοποιούμε μόνο για να σου απαντήσουμε. <a href="privacy/">Πολιτική απορρήτου</a></p>
               <p class="brief__status" role="alert" data-brief-status></p>
 
               <div class="brief__done" data-brief-done hidden tabindex="-1">
@@ -575,46 +628,23 @@
 
   <footer class="foot">
     <div class="wrap">
-      <div class="foot__grid">
-        <div class="foot__brand">
-          <img src="assets/media/brand/wordmark-white.png" alt="TWINMARK" width="227" height="120" loading="lazy" />
-          <p>Δύο αδέρφια. Ένα σήμα. Social media για τοπικές επιχειρήσεις στην Αθήνα.</p>
-        </div>
-        <nav aria-label="Σταθμοί">
-          <h2>Σταθμοί</h2>
-          <ul>
-            <li><a href="#video">Βίντεο</a></li>
-            <li><a href="#photos">Φωτογραφία</a></li>
-            <li><a href="#web">Ιστοσελίδες</a></li>
-            <li><a href="#how">Πώς δουλεύουμε</a></li>
-          </ul>
-        </nav>
-        <div>
-          <h2>Επικοινωνία</h2>
-          <ul>
-            <li><a href="mailto:hello@twinmark.gr">hello@twinmark.gr</a></li>
-            <li><a href="tel:+306983760254">+30 698 376 0254</a></li>
-          </ul>
-          <div class="foot__social">
-            <a href="https://www.instagram.com/twinmark_/" target="_blank" rel="noopener" aria-label="TWINMARK στο Instagram"><svg aria-hidden="true"><use href="#i-ig" /></svg></a>
-            <a href="https://wa.me/306944036657" target="_blank" rel="noopener" aria-label="TWINMARK στο WhatsApp"><svg aria-hidden="true"><use href="#i-wa" /></svg></a>
-            <a href="tel:+306983760254" aria-label="Κάλεσε το TWINMARK"><svg aria-hidden="true"><use href="#i-phone" /></svg></a>
-          </div>
-        </div>
+      <div class="foot__close" data-foot-close>
+        <p class="foot__ask"><span class="foot__l"><span>Το επόμενο post που</span></span> <span class="foot__l"><span>σταματά το scroll;</span></span> <span class="foot__l foot__l--b"><span>Ας είναι δικό σου.</span></span></p>
+        <img class="foot__logo" src="assets/media/brand/wordmark-white.png" alt="TWINMARK" width="227" height="120" loading="lazy" />
       </div>
-      <p class="foot__fine"><span>© <span data-year>2026</span> TWINMARK. Αθήνα.</span><a href="en/" hreflang="en" lang="en">English version</a></p>
+      <p class="foot__fine"><span>© <span data-year>2026</span> TWINMARK · Αθήνα · <a href="mailto:hello@twinmark.gr">hello@twinmark.gr</a></span><span class="foot__links"><a href="privacy/">Απόρρητο</a><a href="en/" hreflang="en" lang="en">English version</a></span></p>
     </div>
   </footer>
 
-  <div class="actionbar" data-actionbar>
-    <a class="btn btn--go" href="https://wa.me/306944036657" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa" /></svg>WhatsApp</a>
-    <a class="btn btn--line" href="#contact">Brief</a>
-  </div>
 
   <script defer src="assets/vendor/gsap/gsap.min.js"></script>
   <script defer src="assets/vendor/gsap/ScrollTrigger.min.js"></script>
   <script defer src="assets/vendor/gsap/CustomEase.min.js"></script>
-  <script defer src="assets/js/site.js?v=16"></script>
-  <script defer src="assets/js/motion.js?v=14"></script>
+  <script defer src="assets/vendor/gsap/ScrambleTextPlugin.min.js"></script>
+  <script defer src="assets/vendor/lenis/lenis.min.js"></script>
+  <script defer src="assets/js/site.js?v=18"></script>
+  <script defer src="assets/js/motion.js?v=29"></script>
+  <script defer src="assets/js/intro.js?v=3"></script>
+  <script type="module" src="assets/js/feed3d.js?v=4"></script>
 </body>
 </html>

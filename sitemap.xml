@@ -10,4 +10,14 @@
     <xhtml:link rel="alternate" hreflang="el" href="https://twinmark.gr/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://twinmark.gr/en/" />
   </url>
+  <url>
+    <loc>https://twinmark.gr/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://twinmark.gr/privacy/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://twinmark.gr/en/privacy/" />
+  </url>
+  <url>
+    <loc>https://twinmark.gr/en/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="el" href="https://twinmark.gr/privacy/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://twinmark.gr/en/privacy/" />
+  </url>
 </urlset>

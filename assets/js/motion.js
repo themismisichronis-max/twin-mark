@@ -19,6 +19,7 @@
   }
 
   gsap.registerPlugin(ScrollTrigger);
+  if (window.ScrambleTextPlugin) gsap.registerPlugin(ScrambleTextPlugin);
   if (window.CustomEase) {
     gsap.registerPlugin(CustomEase);
     CustomEase.create("brake", "M0,0 C0.22,0.9 0.24,1 1,1");
@@ -28,6 +29,22 @@
   var DOORS = window.CustomEase ? "doors" : "power3.inOut";
 
   ScrollTrigger.config({ ignoreMobileResize: true });
+
+  /* ST-23 · one Lenis for the whole page, on every device. Wheel and
+     trackpad glide; touch stays native (no syncTouch), so phones keep their
+     own fling while velocity still reaches ST-24. Reduced motion: none. */
+  var lenis = null;
+  if (window.Lenis && matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+    lenis = new Lenis({ autoRaf: false, lerp: 0.1 });
+    window.lenis = lenis;
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+    if (root.classList.contains("intro-on")) {
+      lenis.stop();
+      document.addEventListener("twm:intro-done", function () { lenis.start(); }, { once: true });
+    }
+  }
 
   window.withMotion = function (setup) {
     var mm = gsap.matchMedia();
@@ -79,7 +96,10 @@
       var start = c.mobile ? 0.3 : 0.55;
       /* desktop: the map sits in the first view, so it draws on arrival;
          phones: it sits below the fold, so it waits until it is seen */
-      var tl = gsap.timeline({ delay: 0.1, paused: c.mobile });
+      /* while the logo intro (R-11) holds the screen, the map waits for it */
+      var held = root.classList.contains("intro-on");
+      var tl = gsap.timeline({ delay: 0.1, paused: c.mobile || held });
+      if (held && !c.mobile) document.addEventListener("twm:intro-done", function () { tl.play(); }, { once: true });
       if (c.mobile) {
         ScrollTrigger.create({ trigger: map, start: "top 65%", once: true, onEnter: function () { tl.play(); } });
       }
@@ -115,7 +135,8 @@
         start + 0.2);
       tl.fromTo(q("[data-nm-branch] text", map), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35, stagger: 0.08 }, start + 0.35);
 
-      var counts = gsap.timeline({ delay: 0.5 });
+      var counts = gsap.timeline({ delay: 0.5, paused: held });
+      if (held) document.addEventListener("twm:intro-done", function () { counts.play(); }, { once: true });
       q(".board [data-count]").forEach(function (el, i) { countUp(el, counts, i * 0.12); });
     }
 
@@ -244,14 +265,101 @@
       });
     }
 
-    /* ---- how we work: the short branch line draws itself ---- */
-    var routeLine = document.querySelector("[data-route-line]");
-    if (routeLine) {
-      gsap.fromTo(routeLine, c.mobile ? { scaleY: 0 } : { scaleX: 0 }, {
-        scaleX: 1, scaleY: 1,
-        duration: 1.3,
-        ease: BRAKE,
-        scrollTrigger: { trigger: "[data-route]", start: c.mobile ? "top 80%" : "top 75%", once: true }
+    /* ---- ST-24 · the reel phones lean with the scroll's speed and settle
+       when it stops; frames only, never the captions people read ---- */
+    var leanFrames = q("#video .reel .phone");
+    if (lenis && leanFrames.length) {
+      var lean = leanFrames.map(function (f) { return gsap.quickTo(f, "skewY", { duration: 0.5, ease: "power3.out" }); });
+      var squash = leanFrames.map(function (f) { return gsap.quickTo(f, "scaleY", { duration: 0.5, ease: "power3.out" }); });
+      var leanOn = false;
+      var leanMax = c.mobile ? 1.6 : 3;
+      var onLean = function (e) {
+        if (!leanOn) return;
+        var v = gsap.utils.clamp(-1, 1, e.velocity / 60);
+        lean.forEach(function (fn) { fn(v * leanMax); });
+        squash.forEach(function (fn) { fn(1 + Math.abs(v) * 0.03); });
+      };
+      lenis.on("scroll", onLean);
+      var leanST = ScrollTrigger.create({ trigger: "#video", start: "top bottom", end: "bottom top", onToggle: function (s) { leanOn = s.isActive; } });
+      cleanups.push(function () { leanST.kill(); lenis.off("scroll", onLean); gsap.set(leanFrames, { clearProps: "transform" }); });
+    }
+
+    /* ---- closing idea: the question rises line by line out of its own slot
+       (TX-03 masked line rise, brake ease), the answer button follows ---- */
+    var close = document.querySelector("[data-foot-close]");
+    if (close) {
+      var closeTl = gsap.timeline({ scrollTrigger: { trigger: close.querySelector(".foot__ask"), start: matchMedia("(max-width: 899px)").matches ? "top 80%" : "clamp(top 62%)", once: true } });
+      closeTl.from(q(".foot__l > span", close), { yPercent: 105, duration: 0.9, ease: BRAKE, stagger: 0.11 });
+      /* the logo sits beside the last line on every size, so it follows the question */
+      closeTl.from(close.querySelector(".foot__logo"), { y: 24, autoAlpha: 0, duration: 0.7, ease: BRAKE }, 0.15);
+      cleanups.push(function () { closeTl.scrollTrigger && closeTl.scrollTrigger.kill(); closeTl.progress(1).kill(); });
+    }
+
+    /* ---- how we work, compact: a departures board on one short line.
+       SV-03 a train travels the line to the active stop (brake ease);
+       TX-05 the board decodes each step like a station sign (Greek chars);
+       ST-09 the active stop follows the reader's scroll; a tap picks one.
+       Without JS / reduced motion: the plain 4-stop list, all text shown. ---- */
+    var how = document.querySelector("[data-how]");
+    var board = how && how.querySelector("[data-how-board]");
+    if (how && board) {
+      var stopsOl = how.querySelector("[data-how-stops]");
+      var stops = q("[data-how-stop]", how);
+      var texts = stops.map(function (li) { return li.querySelector("p").textContent.trim(); });
+      var numEl = board.querySelector("[data-how-num]");
+      var txtEl = board.querySelector("[data-how-text]");
+      var fill = document.createElement("span"); fill.className = "how__fill"; fill.setAttribute("aria-hidden", "true");
+      var train = document.createElement("span"); train.className = "how__train"; train.setAttribute("aria-hidden", "true");
+      stopsOl.appendChild(fill); stopsOl.appendChild(train);
+      how.classList.add("how--live");
+      board.hidden = false;
+      var cur = -1;
+      var dotX = function (i) {
+        var r0 = stopsOl.getBoundingClientRect(), d = stops[i].getBoundingClientRect();
+        return d.left - r0.left + 10;
+      };
+      var fitBoard = function () {
+        var keep = txtEl.textContent, h = 0;
+        board.style.height = "";
+        texts.forEach(function (t) { txtEl.textContent = t; h = Math.max(h, board.offsetHeight); });
+        txtEl.textContent = keep;
+        board.style.height = h + "px";
+      };
+      var setStep = function (i, instant) {
+        if (i === cur) return;
+        cur = i;
+        stops.forEach(function (li, k) { li.classList.toggle("is-on", k === i); li.classList.toggle("is-past", k < i); });
+        var x = dotX(i);
+        gsap.to(train, { x: x, duration: instant ? 0 : 0.75, ease: BRAKE, overwrite: true });
+        gsap.to(fill, { width: x, duration: instant ? 0 : 0.75, ease: BRAKE, overwrite: true });
+        var n = "0" + (i + 1);
+        if (instant) { numEl.textContent = n; txtEl.textContent = texts[i]; return; }
+        gsap.to(numEl, { duration: 0.5, scrambleText: { text: n, chars: "0123456789", speed: 0.8 }, overwrite: true });
+        gsap.to(txtEl, { duration: c.mobile ? 0.7 : 0.9, scrambleText: { text: texts[i], chars: "αβγδεζηθικλμνξοπρστυφχψω  ", revealDelay: 0.12, speed: 0.6, tweenLength: false }, overwrite: true });
+      };
+      fitBoard();
+      setStep(0, true);
+      var lastScroll = 0;
+      var howST = ScrollTrigger.create({
+        trigger: how, start: "top 75%", end: "bottom 25%",
+        onUpdate: function (self) {
+          var k = Math.min(stops.length - 1, Math.floor(self.progress * stops.length));
+          if (k !== lastScroll) { lastScroll = k; setStep(k); }
+        },
+        onRefresh: function () { fitBoard(); var k = cur; cur = -1; setStep(k < 0 ? 0 : k, true); }
+      });
+      var onPick = function (e) {
+        var i = stops.indexOf(e.currentTarget);
+        if (i > -1) setStep(i);
+      };
+      stops.forEach(function (li) { li.addEventListener("click", onPick); });
+      cleanups.push(function () {
+        howST.kill();
+        stops.forEach(function (li) { li.removeEventListener("click", onPick); li.classList.remove("is-on", "is-past"); });
+        gsap.killTweensOf([train, fill, numEl, txtEl]);
+        fill.remove(); train.remove();
+        how.classList.remove("how--live");
+        board.hidden = true; board.style.height = "";
       });
     }
 
