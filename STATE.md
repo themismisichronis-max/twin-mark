@@ -64,4 +64,4 @@ Finish QA (motion-qa, test-recipes into qa/*.txt). Seam gate fails on the v1 flo
 ## 2026-11-18 · LIVE on https://twinmark.gr (main d1c24b6)
 - Live checks: all pages 200, /nope 404, headers present, http→https 301, brotli on; WebKit iPhone / Android / desktop: no overflow, 3D feed renders; Lighthouse phone live: perf 93 · a11y 97 · BP 96 · SEO 92 (LCP 2.9 s, TBT 20 ms, CLS 0).
 - Cloudflare-side items (owner's dashboard): Email Obfuscation is on → «[email protected]» without JS + console errors on the SVG <a> metro stops (turn off: Scrape Shield → Email Address Obfuscation); managed robots.txt adds Content-Signal (Lighthouse "unknown directive", harmless); no MX for hello@; build still serves repo root (CLAUDE.md, STATE.md, package.json public) until build = `sh scripts/dist.sh` → `dist`; Web Analytics not enabled yet.
-- Still open: one real form submit (owner's yes), OG card in a messaging app.
+- 2026-11-18: real form submit from the live site (WebKit iPhone) → Formspree 200 ok, success screen shown. Still open: confirm it arrived in the inbox; OG card in a messaging app.
