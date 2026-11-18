@@ -60,3 +60,8 @@ Finish QA (motion-qa, test-recipes into qa/*.txt). Seam gate fails on the v1 flo
 - Checks on dist/ with headers (localhost:8799): 47 internal links OK; form success/error states OK (mocked Formspree); JSON-LD parses; 404 returns 404; no CSP errors / overflow on phone+desktop; motion-qa CLEAN GR+EN; test-recipes --gpu HEAVY main 2.4–2.5 ms (budget 2; same with eager three, so not from this round; earlier PASS 1.68 on the dev server); Lighthouse phone local (no compression): perf 49 (LCP = h1 after the logo intro, R-11), a11y 97, BP 100, SEO 100.
 - Owner dashboard steps still open: Cloudflare Email Routing for hello@ (no MX!), Pages build `sh scripts/dist.sh` → output `dist` (repo root is public today), enable Web Analytics.
 - Open: deploy (commit + merge v2 → main) on owner's yes; real form submit after deploy; check OG card by pasting the link; Lighthouse again on the live URL.
+
+## 2026-11-18 · LIVE on https://twinmark.gr (main d1c24b6)
+- Live checks: all pages 200, /nope 404, headers present, http→https 301, brotli on; WebKit iPhone / Android / desktop: no overflow, 3D feed renders; Lighthouse phone live: perf 93 · a11y 97 · BP 96 · SEO 92 (LCP 2.9 s, TBT 20 ms, CLS 0).
+- Cloudflare-side items (owner's dashboard): Email Obfuscation is on → «[email protected]» without JS + console errors on the SVG <a> metro stops (turn off: Scrape Shield → Email Address Obfuscation); managed robots.txt adds Content-Signal (Lighthouse "unknown directive", harmless); no MX for hello@; build still serves repo root (CLAUDE.md, STATE.md, package.json public) until build = `sh scripts/dist.sh` → `dist`; Web Analytics not enabled yet.
+- Still open: one real form submit (owner's yes), OG card in a messaging app.
